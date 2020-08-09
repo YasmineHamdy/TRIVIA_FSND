@@ -105,7 +105,6 @@ def setup_questions_apis(app):
                 questions = Question.query.filter(Question.question.ilike('%{}%'.format(searchTerm)) | Question.answer.ilike('%{}%'.format(searchTerm))).all()
                 current_questions = paginate(request, questions, QUESTIONS_PER_PAGE)
 
-                print(questions)
                 response["questions"] = current_questions
                 response["total_questions"] = len(questions)
 
@@ -178,7 +177,7 @@ def setup_questions_apis(app):
         previous_questions = body.get('previous_questions', [])
         quiz_category = body.get('quiz_category', None)
 
-
+        # check for valid body
         if not (isinstance(quiz_category, dict) or quiz_category is None):
             abort(400)
 

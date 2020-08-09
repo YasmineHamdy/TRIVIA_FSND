@@ -71,7 +71,13 @@ class QuizView extends Component {
         return;
       },
       error: ({responseJSON}) => {
-        alert(`Failed to load question due to ${responseJSON.message}. Please try your request again`)
+        // end game if error occur
+        this.setState({
+          forceEnd: true
+        }, () => {
+          alert(`Failed to load question due to ${responseJSON.message}.`)
+        })
+
         return;
       }
     })

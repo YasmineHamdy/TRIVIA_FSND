@@ -23,7 +23,6 @@ def setup_categories_apis(app):
     '''
     @app.route('/categories')
     def get_categories():
-
         return jsonify({
             'success': True,
             'categories': get_all_caregories()
