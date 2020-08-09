@@ -33,8 +33,8 @@ class QuestionView extends Component {
           currentCategory: result.current_category })
         return;
       },
-      error: (error) => {
-        alert(`Failed to load questions due to ${error.message}. Please try your request again`)
+      error: ({responseJSON}) => {
+        alert(`Failed to load questions due to ${responseJSON.message}. Please try your request again`)
         return;
       }
     })
@@ -69,8 +69,8 @@ class QuestionView extends Component {
           currentCategory: result.current_category })
         return;
       },
-      error: (error) => {
-        alert(`Failed to load questions due to ${error.message}. Please try your request again`)
+      error: ({responseJSON}) => {
+        alert(`Failed to load questions due to ${responseJSON.message}. Please try your request again`)
         return;
       }
     })
@@ -94,8 +94,8 @@ class QuestionView extends Component {
           currentCategory: result.current_category })
         return;
       },
-      error: (error) => {
-        alert(`Failed to load questions due to ${error.message}. Please try your request again`)
+      error: ({responseJSON}) => {
+        alert(`Failed to load questions due to ${responseJSON.message}. Please try your request again`)
         return;
       }
     })
@@ -123,8 +123,8 @@ class QuestionView extends Component {
                 totalQuestions: result.total_questions
             })})
           },
-          error: (error) => {
-            alert(`Unable to delete question due to ${error.message} . Please try your request again`)
+          error: ({responseJSON}) => {
+            alert(`Unable to delete question due to ${responseJSON.message} . Please try your request again`)
             return;
           }
         })

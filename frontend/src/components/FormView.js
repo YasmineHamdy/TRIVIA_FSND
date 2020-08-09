@@ -23,8 +23,8 @@ class FormView extends Component {
         this.setState({ categories: result.categories })
         return;
       },
-      error: (error) => {
-        alert(`Failed to load categories due to ${error.message}. Please try your request again`)
+      error: ({responseJSON}) => {
+        alert(`Failed to load categories due to ${responseJSON.message}. Please try your request again`)
         return;
       }
     })
@@ -52,8 +52,8 @@ class FormView extends Component {
         document.getElementById("add-question-form").reset();
         return;
       },
-      error: (error) => {
-        alert(`Unable to add question due to ${error.message}. Please try your request again`)
+      error: ({responseJSON}) => {
+        alert(`Unable to add question due to ${responseJSON.message}. Please try your request again`)
         return;
       }
     })

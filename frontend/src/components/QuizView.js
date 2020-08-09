@@ -28,8 +28,8 @@ class QuizView extends Component {
         this.setState({ categories: result.categories })
         return;
       },
-      error: (error) => {
-        alert(`Failed to load categories due to ${error.message}. Please try your request again`)
+      error: ({responseJSON}) => {
+        alert(`Failed to load categories due to ${responseJSON.message}. Please try your request again`)
         return;
       }
     })
@@ -70,8 +70,8 @@ class QuizView extends Component {
         })
         return;
       },
-      error: (error) => {
-        alert(`Failed to load question due to ${error.message}. Please try your request again`)
+      error: ({responseJSON}) => {
+        alert(`Failed to load question due to ${responseJSON.message}. Please try your request again`)
         return;
       }
     })

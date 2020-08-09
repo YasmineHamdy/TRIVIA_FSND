@@ -46,11 +46,15 @@ def setup_questions_apis(app):
 
     @app.route('/categories/<int:category_id>/questions')
     def get_category_questions(category_id):
+        # abort 404 if no category with this id
+        try:
+            get_category(category_id)
+        except Exception as e:
+            print(e)
+            abort(404)
+
         questions = Question.query.filter(Question.category == category_id).all()
         current_questions = paginate(request, questions,  QUESTIONS_PER_PAGE)
-
-        if len(current_questions) == 0:
-            abort(404)
 
         return jsonify({
             'success': True,
@@ -97,10 +101,11 @@ def setup_questions_apis(app):
 
         
         try:
-            if searchTerm:
-                questions = Question.query.filter(Question.question.ilike('%{}%'.format(searchTerm))).all()
+            if searchTerm is not None:
+                questions = Question.query.filter(Question.question.ilike('%{}%'.format(searchTerm)) | Question.answer.ilike('%{}%'.format(searchTerm))).all()
                 current_questions = paginate(request, questions, QUESTIONS_PER_PAGE)
-        
+
+                print(questions)
                 response["questions"] = current_questions
                 response["total_questions"] = len(questions)
 
