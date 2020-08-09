@@ -34,7 +34,7 @@ class QuestionView extends Component {
         return;
       },
       error: (error) => {
-        alert('Unable to load questions. Please try your request again')
+        alert(`Failed to load questions due to ${error.message}. Please try your request again`)
         return;
       }
     })
@@ -70,7 +70,7 @@ class QuestionView extends Component {
         return;
       },
       error: (error) => {
-        alert('Unable to load questions. Please try your request again')
+        alert(`Failed to load questions due to ${error.message}. Please try your request again`)
         return;
       }
     })
@@ -95,7 +95,7 @@ class QuestionView extends Component {
         return;
       },
       error: (error) => {
-        alert('Unable to load questions. Please try your request again')
+        alert(`Failed to load questions due to ${error.message}. Please try your request again`)
         return;
       }
     })
@@ -108,10 +108,23 @@ class QuestionView extends Component {
           url: `/questions/${id}`, //TODO: update request URL
           type: "DELETE",
           success: (result) => {
-            this.getQuestions();
+            this.setState(prevState => {
+              // filter the deleted question
+              let questions = prevState.questions.filter(question => question.id != result.deleted)
+              
+              // select previous page if there is no questions of current page after deletion
+              if(!questions.length){
+                this.selectPage(prevState.page -1 || 1)
+                return prevState
+              }
+              return ({
+                ...prevState,
+                questions,
+                totalQuestions: result.total_questions
+            })})
           },
           error: (error) => {
-            alert('Unable to load questions. Please try your request again')
+            alert(`Unable to delete question due to ${error.message} . Please try your request again`)
             return;
           }
         })
