@@ -142,13 +142,10 @@ def setup_questions_apis(app):
 
             question.delete()
             questions = Question.query.all()
-            
-            questions = paginate(request, questions, QUESTIONS_PER_PAGE)
 
             return jsonify({
             'success': True,
             'deleted': question_id,
-            'questions': questions,
             'total_questions': len(questions)
             })
 
