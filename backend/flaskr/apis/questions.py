@@ -180,7 +180,7 @@ def setup_questions_apis(app):
         if not (isinstance(quiz_category, dict) or quiz_category is None):
             abort(400)
 
-        questions = Question.query.filter(Question.category == quiz_category['id']).all() if quiz_category['id'] else Question.query.all()
+        questions = Question.query.filter(Question.category == quiz_category['id']).all() if quiz_category and quiz_category['id'] else Question.query.all()
         is_selected_before = False
         result = {}
 
